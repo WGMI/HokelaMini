@@ -12,6 +12,15 @@ import retrofit2.http.POST;
 public interface ApiClient {
 
     @POST("register")
-    Call<RegisterResponse> register(@Body User user);
+    @FormUrlEncoded
+    Call<RegisterResponse> register(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone_number") String phone_number,
+            @Field("country") String country,
+            @Field("id_number") String id_number,
+            @Field("dob") String dob,
+            @Field("password") String password
+    );
 
 }
