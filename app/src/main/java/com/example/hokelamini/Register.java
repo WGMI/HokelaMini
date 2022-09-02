@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -72,10 +73,11 @@ public class Register extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(context,MainActivity.class));
                 //Validate not empty
-                User user = new User("name","0700","country","12345678","0","2000-01-01","email@e.e","password");
+                /*User user = new User("name","0700","country","12345678","0","2000-01-01","email@e.e","password");
                 ApiClient client = RetrofitClient.getRetrofitInstance().create(ApiClient.class);
-                Call<RegisterResponse> call = client.register(user);
+                Call<RegisterResponse> call = client.register("name","a@b.b","0700","KEN","12345678","2000-01-01","password");
                 call.enqueue(new Callback<RegisterResponse>() {
                     @Override
                     public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
@@ -86,7 +88,7 @@ public class Register extends AppCompatActivity {
                     public void onFailure(Call<RegisterResponse> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
-                });
+                });*/
             }
         });
     }
