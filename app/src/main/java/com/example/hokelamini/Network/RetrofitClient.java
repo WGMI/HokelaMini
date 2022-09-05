@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     static String BASE_URL = "http://192.168.43.53/";
+    //static String BASE_URL = "http://192.168.69.53/";
     static String SUFFIX = "hokela_mini/public/api/";
     static String URL = BASE_URL + SUFFIX;
 

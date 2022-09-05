@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ProjectActivity">
 
     <include layout="@layout/toolbar"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/project_list"
+        android:id="@+id/survey_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

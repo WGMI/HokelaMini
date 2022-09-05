@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20sp"
+    android:layout_width="320sp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="Enter project code"
+        android:layout_marginBottom="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/code"
+        android:hint="12345"
+        android:inputType="number"
+        android:padding="10sp"
+        android:background="@drawable/simple_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/simple_border_tr"
+            android:text="CANCEL"
+            android:backgroundTint="#fff"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/simple_border_tr"
+            android:text="JOIN"
+            android:backgroundTint="#fff"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+</LinearLayout>

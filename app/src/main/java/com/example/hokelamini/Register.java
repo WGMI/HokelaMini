@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +15,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.hokelamini.Models.Responses.RegisterResponse;
+import com.example.hokelamini.Models.Responses.AuthResponse;
 import com.example.hokelamini.Models.User;
 import com.example.hokelamini.Network.ApiClient;
 import com.example.hokelamini.Network.RetrofitClient;
 
 import java.util.Calendar;
+
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +31,7 @@ import retrofit2.Response;
 public class Register extends AppCompatActivity {
 
     Context context;
-
+    SharedPreferences preferences;
     EditText name,lname,idno,email,number,dob,country,password,confirmPass;
     Button submit;
 
@@ -39,9 +43,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         context = this;
+        preferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
-        name = findViewById(R.id.name);
-        lname = findViewById(R.id.lname);
+        name = findViewById(R.id.email);
+        lname = findViewById(R.id.pass);
         idno = findViewById(R.id.idText);
         email = findViewById(R.id.user_email);
         number = findViewById(R.id.phone_number);
@@ -73,22 +78,59 @@ public class Register extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context,MainActivity.class));
+                //startActivity(new Intent(context,MainActivity.class));
                 //Validate not empty
-                /*User user = new User("name","0700","country","12345678","0","2000-01-01","email@e.e","password");
+
+                String nameString = name.getText().toString();
+                String lnameString = lname.getText().toString();
+                String idnoString = idno.getText().toString();
+                String emailString = email.getText().toString();
+                String numberString = number.getText().toString();
+                String dobString = dob.getText().toString();
+                String countryString = country.getText().toString();
+                String passwordString = password.getText().toString();
+                String confirmPassString = confirmPass.getText().toString();
+
+                if(
+                        TextUtils.isEmpty(nameString) ||
+                        TextUtils.isEmpty(lnameString) ||
+                        TextUtils.isEmpty(idnoString) ||
+                        TextUtils.isEmpty(emailString) ||
+                        TextUtils.isEmpty(numberString) ||
+                        TextUtils.isEmpty(dobString) ||
+                        TextUtils.isEmpty(countryString) ||
+                        TextUtils.isEmpty(passwordString) ||
+                        TextUtils.isEmpty(confirmPassString)
+                ){
+                    Toast.makeText(context, "Please fill all fields.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(!passwordString.equals(confirmPassString)){
+                    Toast.makeText(context, "The passwords do not match.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 ApiClient client = RetrofitClient.getRetrofitInstance().create(ApiClient.class);
-                Call<RegisterResponse> call = client.register("name","a@b.b","0700","KEN","12345678","2000-01-01","password");
-                call.enqueue(new Callback<RegisterResponse>() {
+                Call<AuthResponse> call = client.register(nameString + " " + lnameString,emailString,numberString,countryString,idnoString,dobString,passwordString);
+                call.enqueue(new Callback<AuthResponse>() {
                     @Override
-                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                        Log.d(TAG, "onResponse: " + response.body());
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        Gson gson = new Gson();
+                        User user = response.body().getUser();
+                        String token = response.body().getToken();
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("user",gson.toJson(user));
+                        editor.putString("token",token);
+                        editor.apply();
+                        startActivity(new Intent(context,MainActivity.class));
                     }
 
                     @Override
-                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
-                });*/
+                });
             }
         });
     }

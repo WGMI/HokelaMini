@@ -2,12 +2,12 @@ package com.example.hokelamini.Models.Responses;
 
 import com.example.hokelamini.Models.User;
 
-public class RegisterResponse {
+public class AuthResponse {
 
     User user;
     String token;
 
-    public RegisterResponse(User user, String token) {
+    public AuthResponse(User user, String token) {
         this.user = user;
         this.token = token;
     }
