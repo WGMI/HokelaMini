@@ -67,7 +67,6 @@ public class ProjectActivity extends AppCompatActivity {
                     surveyList.setLayoutManager(manager);
                     adapter = new SurveyAdapter(context,surveys);
                     surveyList.setAdapter(adapter);
-                    Log.d(TAG, "fetchProjects: " + surveys.size());
                 }
             }
 

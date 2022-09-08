@@ -1,6 +1,9 @@
 package com.example.hokelamini.Models.Adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hokelamini.Models.Answer;
 import com.example.hokelamini.Models.Question;
 import com.example.hokelamini.R;
 
@@ -55,11 +59,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             try {
                 JSONArray opts = new JSONArray(questionList.get(position).getOptions());
-                CharSequence[] cs = new CharSequence[opts.length()];
                 for(int i=0;i<opts.length();i++){
                     RadioButton rb = new RadioButton(context);
                     rb.setLayoutParams(p);
                     rb.setText(opts.getString(i));
+                    View.OnClickListener l = new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            question.getAnswer().setAnswer((String) rb.getText());
+                        }
+                    };
+                    rb.setOnClickListener(l);
                     holder.options.addView(rb);
                 }
 
@@ -74,6 +84,41 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.imageaction.setVisibility(question.getType().equals("image") ? View.VISIBLE : View.GONE);
         holder.locationaction.setVisibility(question.getType().equals("location") ? View.VISIBLE : View.GONE);
         holder.answerLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+        Answer a = new Answer();
+
+        if(question.getType().equals("text")){
+            holder.answer.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    a.setAnswer(editable.toString());
+                }
+            });
+            a.setAnswer(holder.answer.getText().toString());
+        }
+
+        switch (question.getType()){
+            case "text":
+                a.setAnswer(holder.answer.getText().toString());
+                break;
+            case "single_option":
+                a.setAnswer(holder.options.getCheckedRadioButtonId() + "");
+                break;
+        }
+
+        //a.setAnswer("test");
+
+        question.setAnswer(a);
     }
 
     @Override

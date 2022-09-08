@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchProjects() {
-        Log.d(TAG, "fetchProjects: " + token);
         Call<List<Project>> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).getProjects("Bearer " + token);
         call.enqueue(new Callback<List<Project>>() {
             @Override
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                     projectList.setLayoutManager(manager);
                     adapter = new ProjectAdapter(context,projects);
                     projectList.setAdapter(adapter);
-                    Log.d(TAG, "fetchProjects: " + projects.size());
                 }
             }
 

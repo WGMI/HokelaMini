@@ -1,5 +1,6 @@
 package com.example.hokelamini.Network;
 
+import com.example.hokelamini.Models.Answer;
 import com.example.hokelamini.Models.Question;
 import com.example.hokelamini.Models.Responses.AuthResponse;
 import com.example.hokelamini.Models.Responses.Project;
@@ -9,6 +10,7 @@ import com.example.hokelamini.Models.Survey;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -52,5 +54,14 @@ public interface ApiClient {
     @Headers({"Accept: application/json"})
     @GET("surveys/questions/{id}")
     Call<List<Question>> getQuestions(@Header("Authorization") String token, @Path("id") long id);
+
+    @Headers({"Accept: application/json"})
+    @POST("answers/storemultiple")
+    Call<StandardResponse> storeAnswers(@Header("Authorization") String token, @Body List<Answer> answers);
+
+    /*@Headers({"Accept: application/json"})
+    @POST("answers/test")
+    @FormUrlEncoded
+    Call<StandardResponse> test(@Header("A"))*/
 }
 

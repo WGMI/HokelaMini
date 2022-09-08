@@ -9,6 +9,7 @@ public class Question {
     long survey_id;
     String created_at;
     private boolean expanded;
+    Answer answer;
 
     public Question(long id, String question_text, String type, String options, long survey_id, String created_at) {
         this.id = id;
@@ -74,5 +75,13 @@ public class Question {
 
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
