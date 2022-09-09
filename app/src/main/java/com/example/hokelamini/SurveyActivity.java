@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.hokelamini.Models.Adapters.QuestionAdapter;
 import com.example.hokelamini.Models.Adapters.SurveyAdapter;
@@ -60,8 +61,11 @@ public class SurveyActivity extends AppCompatActivity {
         token = preferences.getString("token",null);
         User user = new Gson().fromJson(preferences.getString("user",null), User.class);
         surveyId = getIntent().getLongExtra("survey_id",-1);
+        String surveyName = getIntent().getStringExtra("survey_name");
 
         toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
+        title.setText(surveyName);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 

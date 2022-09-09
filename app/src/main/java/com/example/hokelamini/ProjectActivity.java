@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.hokelamini.Models.Survey;
 import com.example.hokelamini.Models.Adapters.SurveyAdapter;
@@ -45,8 +46,11 @@ public class ProjectActivity extends AppCompatActivity {
         preferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         token = preferences.getString("token",null);
         projectId = getIntent().getLongExtra("project_id",-1);
+        String project = getIntent().getStringExtra("project_name");
 
         toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
+        title.setText(project);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
