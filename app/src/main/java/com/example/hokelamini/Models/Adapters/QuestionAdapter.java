@@ -1,6 +1,9 @@
 package com.example.hokelamini.Models.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,10 +36,12 @@ import java.util.List;
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
     Context context;
+    Activity activity;
     List<Question> questionList;
 
-    public QuestionAdapter(Context context, List<Question> questionList) {
+    public QuestionAdapter(Context context, Activity activity, List<Question> questionList) {
         this.context = context;
+        this.activity = activity;
         this.questionList = questionList;
     }
 
@@ -120,6 +125,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         holder.locationaction.setVisibility(question.getType().equals(Constants.LOCATION) ? View.VISIBLE : View.GONE);
         holder.answerLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
+        holder.imageaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                captureImage((int)questionList.get(position).getId());
+            }
+        });
+
         Answer a = new Answer();
 
         if(question.getType().equals(Constants.TEXT)){
@@ -154,6 +166,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         //a.setAnswer("test");
 
         question.setAnswer(a);
+    }
+
+    private void captureImage(int code) {
+        //Toast.makeText(getActivity(), "Not currently available", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        activity.startActivityForResult(intent,code);
     }
 
     @Override
