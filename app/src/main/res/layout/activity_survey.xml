@@ -13,11 +13,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/question_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="480dp" />
+        android:layout_marginTop="56dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/submit"
@@ -29,11 +28,5 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         app:srcCompat="@drawable/ic_baseline_check_24" />
-
-    <!--<Button
-        android:id="@+id/submit"
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>-->
 
 </RelativeLayout>

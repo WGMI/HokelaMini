@@ -82,9 +82,10 @@ public class SurveyActivity extends AppCompatActivity {
                 for(Question q : questions){
                     //Redundancy
                     Answer a = new Answer(q.getAnswer().getAnswer(),q.getId(),user.getId());
-                    if(a.getAnswer() == null){
+                    if(a.getAnswer() == null || a.getAnswer().length() < 1){
                         a.setAnswer("NA");
                     }
+                    Log.d(TAG, "onClick: " + q.getQuestion_text() + ": " + a.getAnswer() + " - " + (a.getAnswer() == null) );
                     answers.add(a);
                 }
                 sendAnswers(answers);
@@ -97,6 +98,7 @@ public class SurveyActivity extends AppCompatActivity {
         call.enqueue(new Callback<StandardResponse>() {
             @Override
             public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                Log.d(TAG, "onResponse: " + response.code());
                 if(response.code() == 201){
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Success")

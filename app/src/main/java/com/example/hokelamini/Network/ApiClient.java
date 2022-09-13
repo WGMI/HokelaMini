@@ -48,6 +48,11 @@ public interface ApiClient {
     Call<List<Project>> getProjects(@Header("Authorization") String token);
 
     @Headers({"Accept: application/json"})
+    @POST("projects/joinbycode")
+    @FormUrlEncoded
+    Call<StandardResponse> joinProject(@Header("Authorization") String token,@Field("code") String code);
+
+    @Headers({"Accept: application/json"})
     @GET("projects/surveys/{id}")
     Call<List<Survey>> getSurveys(@Header("Authorization") String token, @Path("id") long id);
 
@@ -58,6 +63,9 @@ public interface ApiClient {
     @Headers({"Accept: application/json"})
     @POST("answers/storemultiple")
     Call<StandardResponse> storeAnswers(@Header("Authorization") String token, @Body List<Answer> answers);
+
+    @GET("test")
+    Call<StandardResponse> test();
 
     /*@Headers({"Accept: application/json"})
     @POST("answers/test")

@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/guideline_left"

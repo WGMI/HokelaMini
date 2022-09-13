@@ -1,6 +1,7 @@
 package com.example.hokelamini;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -119,12 +121,18 @@ public class MainActivity extends AppCompatActivity {
         Button cancel = dialog.findViewById(R.id.cancel);
         Button join = dialog.findViewById(R.id.join);
 
-        cancel.setOnClickListener(null);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String codeString = code.getText().toString();
                 joinProject(codeString);
+                dialog.dismiss();
             }
         });
 
@@ -132,18 +140,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void joinProject(String code) {
-//        Call<SurveyResponse> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).joinSurvey(token,code);
-//        call.enqueue(new Callback<SurveyResponse>() {
-//            @Override
-//            public void onResponse(Call<SurveyResponse> call, Response<SurveyResponse> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SurveyResponse> call, Throwable t) {
-//
-//            }
-//        });
+        Call<StandardResponse> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).joinProject("Bearer " + token,code);
+        call.enqueue(new Callback<StandardResponse>() {
+            @Override
+            public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {
+                if(response.code() == 201){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Success")
+                            .setMessage("Refresh the page")
+                            .setCancelable(false)
+                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    startActivity(new Intent(context,MainActivity.class));
+                                }
+                            })
+                            .show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StandardResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
     private void logout(){
