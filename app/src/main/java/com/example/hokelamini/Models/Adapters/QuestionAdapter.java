@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hokelamini.Models.Answer;
@@ -34,6 +35,7 @@ import com.example.hokelamini.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -129,6 +131,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         }
 
         holder.answer.setVisibility(question.getType().equals(Constants.TEXT) ? View.VISIBLE : View.GONE);
+        holder.answercontrol.setVisibility(question.getType().equals(Constants.TEXT) ? View.VISIBLE : View.GONE);
         holder.imageaction.setVisibility(question.getType().equals(Constants.IMAGE) ? View.VISIBLE : View.GONE);
         holder.locationaction.setVisibility(question.getType().equals(Constants.LOCATION) ? View.VISIBLE : View.GONE);
         holder.answerLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -166,7 +169,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                         a.setAnswer(coords.toString());
                         holder.info.setVisibility(View.VISIBLE);
                         holder.info.setText("Location Captured");
-                        Log.d("TAG", "onSuccess: " + coords.toString());
                         dialog.dismiss();
                     }
                 });
@@ -174,7 +176,19 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         });
 
         if (question.getType().equals(Constants.TEXT)) {
-            holder.answer.addTextChangedListener(new TextWatcher() {
+            holder.answercontrol.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(holder.answer.getText().toString().length() > 0){
+                        a.setAnswer(holder.answer.getText().toString());
+                        holder.answercontrol.setText("Edit");
+                        holder.answercontrol.setBackgroundTintList(ContextCompat.getColorStateList(context,R.color.orange));
+                    }else{
+                        Toast.makeText(context, "Enter an answer", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            /*holder.answer.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -189,8 +203,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 public void afterTextChanged(Editable editable) {
                     a.setAnswer(editable.toString());
                 }
-            });
-            a.setAnswer(holder.answer.getText().toString());
+            });*/
         }
 
         /*switch (question.getType()){
@@ -226,7 +239,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         EditText answer;
         RadioGroup options;
         LinearLayout multipleOptions;
-        Button imageaction,locationaction;
+        Button imageaction,locationaction,answercontrol;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -234,6 +247,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             info = itemView.findViewById(R.id.info);
             answerLayout = itemView.findViewById(R.id.answer_area);
             answer = itemView.findViewById(R.id.text_answer);
+            answercontrol = itemView.findViewById(R.id.text_answer_control);
             options = itemView.findViewById(R.id.options_answer);
             multipleOptions = itemView.findViewById(R.id.multiple_options_answer);
             imageaction = itemView.findViewById(R.id.image_action);
@@ -243,7 +257,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 @Override
                 public void onClick(View view) {
                     Question q = questionList.get(getAdapterPosition());
-                    q.setExpanded(!q.isExpanded());
+                    q.setExpanded(true);
+                    Log.d("TAG", "onBindViewHolder: " + new Gson().toJson(q.getAnswer()));
                     notifyItemChanged(getAdapterPosition());
                 }
             });

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -51,7 +52,7 @@ public class SurveyActivity extends AppCompatActivity {
     RecyclerView questionList;
     List<Question> questions;
     QuestionAdapter adapter;
-    FloatingActionButton submit;
+    Button submit;
 
     long surveyId;
     List<Answer> answers;
@@ -85,6 +86,24 @@ public class SurveyActivity extends AppCompatActivity {
         answers = new ArrayList<>();
         imageanswers = new ArrayList<>();
         fetchQuestions();
+
+        submit.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                for(Question q : questions){
+                    //Redundancy
+                    if(q.getType().equals(Constants.IMAGE)){
+                        continue;
+                    }
+                    Answer a = new Answer(q.getAnswer().getAnswer(),q.getId(),user.getId());
+                    if(a.getAnswer() == null || a.getAnswer().length() < 1){
+                        a.setAnswer("NA");
+                    }
+                    Log.d(TAG, "onLongClick: " + new Gson().toJson(a));
+                }
+                return true;
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

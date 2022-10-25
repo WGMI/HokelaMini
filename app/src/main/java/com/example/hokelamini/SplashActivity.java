@@ -28,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         ) {
             String[] permissions = {Manifest.permission.CAMERA,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
             ActivityCompat.requestPermissions(this, permissions, ALL_PERMISSIONS);
+            finish();
         } else{
             new Handler().postDelayed(new Runnable() {
                 @Override

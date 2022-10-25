@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".SurveyActivity">
 
@@ -13,12 +12,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/question_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="56dp" />
+        android:layout_weight="12" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
+        android:id="@+id/submit"
+        android:text="Submit"
+        android:backgroundTint="@color/blue"
+        android:layout_alignBottom="@+id/question_list"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0sp"/>
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +35,6 @@
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_check_24" />
+        app:srcCompat="@drawable/ic_baseline_check_24" />-->
 
-</RelativeLayout>
+</LinearLayout>

@@ -31,12 +31,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/text_answer"
-                    android:hint="Answer"
-                    android:visibility="gone"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/text_answer"
+                        android:hint="Answer"
+                        android:visibility="visible"
+                        android:layout_weight="5"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/text_answer_control"
+                        android:text="Done"
+                        android:textSize="10sp"
+                        android:backgroundTint="@color/blue"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:layout_width="0sp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <RadioGroup
                     android:id="@+id/options_answer"
