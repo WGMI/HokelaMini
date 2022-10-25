@@ -101,7 +101,6 @@ public class SurveyActivity extends AppCompatActivity {
                     answers.add(a);
                 }
 
-                Log.d(TAG, "onClick: " + imageanswers.get(0).getQuestion_id());
                 answers.addAll(imageanswers);
                 sendAnswers(answers);
             }

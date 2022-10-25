@@ -64,12 +64,5 @@ public interface ApiClient {
     @POST("answers/storemultiple")
     Call<StandardResponse> storeAnswers(@Header("Authorization") String token, @Body List<Answer> answers);
 
-    @GET("test")
-    Call<StandardResponse> test();
-
-    /*@Headers({"Accept: application/json"})
-    @POST("answers/test")
-    @FormUrlEncoded
-    Call<StandardResponse> test(@Header("A"))*/
 }
 
