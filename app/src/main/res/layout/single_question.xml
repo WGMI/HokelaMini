@@ -39,20 +39,21 @@
                     <EditText
                         android:id="@+id/text_answer"
                         android:hint="Answer"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_weight="5"
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"/>
 
-                    <Button
+                    <!--<Button
                         android:id="@+id/text_answer_control"
-                        android:text="Done"
+                        android:text="Answer"
                         android:textSize="10sp"
                         android:backgroundTint="@color/blue"
                         android:textAllCaps="false"
-                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:layout_weight="2"
                         android:layout_width="0sp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"/>-->
 
                 </LinearLayout>
 
