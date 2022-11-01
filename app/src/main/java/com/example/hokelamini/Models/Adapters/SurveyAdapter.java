@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hokelamini.Models.Survey;
 import com.example.hokelamini.R;
+import com.example.hokelamini.ReportActivity;
 import com.example.hokelamini.SurveyActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -47,11 +48,17 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, SurveyActivity.class);
+                //Intent i = new Intent(context, ReportActivity.class);
                 i.putExtra("survey_id",survey.getId());
                 i.putExtra("survey_name",survey.getName());
                 context.startActivity(i);
             }
         });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override

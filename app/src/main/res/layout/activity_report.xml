@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ReportActivity">
+
+    <include
+        android:id="@+id/tool"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="20sp"
+        android:text=""
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/answer_area"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:layout_below="@+id/question"
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/multiple_options_answer"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/info"
+            android:text=""
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/image_action"
+            android:text="Get Image"
+            android:visibility="gone"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:backgroundTint="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/location_action"
+            android:text="Get Location"
+            android:visibility="gone"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:backgroundTint="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:padding="10sp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/prev"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:text="Previous" />
+
+        <View
+            android:layout_width="0sp"
+            android:layout_height="10sp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:text="Next" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/options_answer"
+        android:layout_below="@+id/question"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/text_answer"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:hint="Answer"
+            android:visibility="gone" />
+
+        <!--<Button
+                android:id="@+id/text_answer_control"
+                android:text="Answer"
+                android:textSize="10sp"
+                android:backgroundTint="@color/blue"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:layout_weight="2"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"/>-->
+
+    </LinearLayout>
+
+</RelativeLayout>
