@@ -12,11 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/answerfield"
-        android:hint="Answer"
+    <RadioGroup
+        android:id="@+id/options_answer"
         android:layout_width="300sp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+    </RadioGroup>
 
     <LinearLayout
         android:orientation="horizontal"

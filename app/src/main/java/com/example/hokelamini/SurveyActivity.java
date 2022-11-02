@@ -115,7 +115,7 @@ public class SurveyActivity extends AppCompatActivity {
                     if(q.getType().equals(Constants.IMAGE)){
                         continue;
                     }
-                    Answer a = new Answer(q.getAnswer().getAnswer(),q.getId(),user.getId());
+                    Answer a = (q.getAnswer() != null) ? new Answer(q.getAnswer().getAnswer(),q.getId(),user.getId()) : new Answer("NA",q.getId(),user.getId());
                     if(a.getAnswer() == null || a.getAnswer().length() < 1){
                         a.setAnswer("NA");
                     }
@@ -166,7 +166,7 @@ public class SurveyActivity extends AppCompatActivity {
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     questionList.setLayoutManager(manager);
                     //adapter = new QuestionAdapter(context,activity,questions);
-                    adapter = new QueryAdapter(context,questions);
+                    adapter = new QueryAdapter(context,activity,questions);
                     questionList.setAdapter(adapter);
                 }
             }

@@ -12,11 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/answerfield"
-        android:hint="Answer"
+    <LinearLayout
+        android:id="@+id/multiple_options_answer"
+        android:orientation="vertical"
         android:layout_width="300sp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
