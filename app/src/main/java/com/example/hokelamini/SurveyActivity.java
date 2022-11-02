@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hokelamini.Models.Adapters.QueryAdapter;
 import com.example.hokelamini.Models.Adapters.QuestionAdapter;
 import com.example.hokelamini.Models.Answer;
 import com.example.hokelamini.Models.Constants;
@@ -51,7 +52,8 @@ public class SurveyActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView questionList;
     List<Question> questions;
-    QuestionAdapter adapter;
+    //QuestionAdapter adapter;
+    QueryAdapter adapter;
     Button submit;
 
     long surveyId;
@@ -163,7 +165,8 @@ public class SurveyActivity extends AppCompatActivity {
                     questions = response.body();
                     LinearLayoutManager manager = new LinearLayoutManager(context);
                     questionList.setLayoutManager(manager);
-                    adapter = new QuestionAdapter(context,activity,questions);
+                    //adapter = new QuestionAdapter(context,activity,questions);
+                    adapter = new QueryAdapter(context,questions);
                     questionList.setAdapter(adapter);
                 }
             }
