@@ -69,6 +69,7 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
         holder.question.setText(query.getQuestion_text());
 
         if(query.getAnswer() != null){
+            Log.d("TAG_", "onClick: " + new Gson().toJson(query));
             holder.info.setText(query.getAnswer().getAnswer());
             if(query.getType().equals(Constants.LOCATION)){
                 holder.info.setText("Location Captured");
@@ -81,7 +82,6 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
         holder.question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG_", "onClick: " + new Gson().toJson(query));
                 answer(query,position);
             }
         });
