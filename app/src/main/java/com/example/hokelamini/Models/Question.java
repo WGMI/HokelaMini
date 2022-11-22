@@ -6,16 +6,18 @@ public class Question {
     String question_text;
     String type;
     String options;
+    int mandatory;
     long survey_id;
     String created_at;
     private boolean expanded;
     Answer answer;
 
-    public Question(long id, String question_text, String type, String options, long survey_id, String created_at) {
+    public Question(long id, String question_text, String type, String options, int mandatory, long survey_id, String created_at) {
         this.id = id;
         this.question_text = question_text;
         this.type = type;
         this.options = options;
+        this.mandatory = mandatory;
         this.survey_id = survey_id;
         this.created_at = created_at;
         this.expanded = false;
@@ -43,6 +45,14 @@ public class Question {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(int mandatory) {
+        this.mandatory = mandatory;
     }
 
     public String getOptions() {

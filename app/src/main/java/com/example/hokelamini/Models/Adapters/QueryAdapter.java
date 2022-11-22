@@ -72,7 +72,6 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
         holder.question.setText(query.getQuestion_text());
 
         if(query.getAnswer() != null){
-            Log.d("TAG_", "onClick: " + new Gson().toJson(query));
             holder.info.setText(query.getAnswer().getAnswer());
             if(query.getType().equals(Constants.LOCATION)){
                 holder.info.setText("Location Captured");
@@ -91,6 +90,7 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
     }
 
     private void answer(Question query,int position) {
+        boolean mandatory = query.getMandatory() == 1;
         Dialog dialog = new Dialog(context);
         dialog.setCanceledOnTouchOutside(false);
         if(query.getType().equals(Constants.TEXT) || query.getType().equals(Constants.NUMBER)){
@@ -101,7 +101,6 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
 
             if(query.getType().equals(Constants.NUMBER)){
                 questionText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                Log.d("tag_", "answer: ");
             }
 
             questionText.setText(query.getQuestion_text());
@@ -133,6 +132,10 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(mandatory){
+                        Toast.makeText(context, "This question is mandatory", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     dialog.dismiss();
                 }
             });
