@@ -9,11 +9,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -90,11 +93,16 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
     private void answer(Question query,int position) {
         Dialog dialog = new Dialog(context);
         dialog.setCanceledOnTouchOutside(false);
-        if(query.getType().equals(Constants.TEXT)){
+        if(query.getType().equals(Constants.TEXT) || query.getType().equals(Constants.NUMBER)){
             dialog.setContentView(R.layout.text_dialog);
             TextView questionText = dialog.findViewById(R.id.question_text);
             EditText answerfield = dialog.findViewById(R.id.answerfield);
             Button done = dialog.findViewById(R.id.done);
+
+            if(query.getType().equals(Constants.NUMBER)){
+                questionText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                Log.d("tag_", "answer: ");
+            }
 
             questionText.setText(query.getQuestion_text());
             done.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +112,18 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.ViewHolder> 
                         Toast.makeText(context, "Please type and answer or enter NA", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    String answer = answerfield.getText().toString();
+                    if(query.getType().equals(Constants.NUMBER)){
+                        try{
+                            Float.parseFloat(answer);
+                        }
+                        catch (NumberFormatException e){
+                            Toast.makeText(context, "Please enter a number.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
                     Answer a = new Answer();
-                    a.setAnswer(answerfield.getText().toString());
+                    a.setAnswer(answer);
                     query.setAnswer(a);
                     dialog.dismiss();
                     notifyItemChanged(position);
