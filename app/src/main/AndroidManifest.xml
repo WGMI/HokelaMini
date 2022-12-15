@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hokelamini">
+    package="com.hkl.hokelamini">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,10 +17,10 @@
         android:theme="@style/Theme.HokelaMini"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ReportActivity"
+            android:name="com.hkl.hokelamini.ReportActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.hkl.hokelamini.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SurveyActivity" />
-        <activity android:name=".ProjectActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.hkl.hokelamini.SurveyActivity" />
+        <activity android:name="com.hkl.hokelamini.ProjectActivity" />
+        <activity android:name="com.hkl.hokelamini.Register" />
+        <activity android:name="com.hkl.hokelamini.Login" />
+        <activity android:name="com.hkl.hokelamini.MainActivity" />
     </application>
 
 </manifest>
