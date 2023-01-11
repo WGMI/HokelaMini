@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:padding="20sp"
+    android:paddingStart="40sp"
+    android:paddingEnd="40sp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        android:layout_marginBottom="20sp"/>
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:src="@drawable/index"
+        android:layout_width="96sp"
+        android:layout_height="96sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="20sp"
+        android:text="Add Photo"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:hint="Name"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:background="@drawable/simple_border"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:hint="Email"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:background="@drawable/simple_border"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:hint="ID No."
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:background="@drawable/simple_border"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:background="@drawable/simple_border"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:background="@drawable/simple_border"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Complete Registration"
+        android:textAllCaps="false"
+        android:backgroundTint="#fff"
+        android:textColor="@color/colorPrimary"/>
+
+
+</LinearLayout>

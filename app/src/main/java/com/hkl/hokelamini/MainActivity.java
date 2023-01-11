@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         editor = preferences.edit();
         token = preferences.getString("token",null);
         if(token == null){
-            startActivity(new Intent(this,Login.class));
+            startActivity(new Intent(this,LoginActivity.class));
             finish();
             return;
         }
