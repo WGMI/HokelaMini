@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hokela Mini</string>
+    <string name="title_activity_campaign">CampaignActivity</string>
 </resources>

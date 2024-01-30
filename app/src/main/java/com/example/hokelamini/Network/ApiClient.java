@@ -1,9 +1,11 @@
 package com.example.hokelamini.Network;
 
+import com.example.hokelamini.Checkin;
 import com.example.hokelamini.Models.Answer;
+import com.example.hokelamini.Models.Campaign;
 import com.example.hokelamini.Models.Question;
 import com.example.hokelamini.Models.Responses.AuthResponse;
-import com.example.hokelamini.Models.Responses.Project;
+import com.example.hokelamini.Models.Project;
 import com.example.hokelamini.Models.Responses.StandardResponse;
 import com.example.hokelamini.Models.Survey;
 
@@ -53,12 +55,38 @@ public interface ApiClient {
     Call<StandardResponse> joinProject(@Header("Authorization") String token,@Field("code") String code);
 
     @Headers({"Accept: application/json"})
+    @POST("campaigns/joinbycode")
+    @FormUrlEncoded
+    Call<StandardResponse> joinCampaign(@Header("Authorization") String token,@Field("code") String code);
+
+    @Headers({"Accept: application/json"})
+    @GET("checkin/status/{id}")
+    Call<StandardResponse> checkSessionStatus(@Header("Authorization") String token,@Path("id") long id);
+
+    @Headers({"Accept: application/json"})
     @GET("projects/surveys/{id}")
     Call<List<Survey>> getSurveys(@Header("Authorization") String token, @Path("id") long id);
 
     @Headers({"Accept: application/json"})
+    @GET("campaigns/reports/{id}")
+    Call<List<Survey>> getCampaignSurveys(@Header("Authorization") String token, @Path("id") long id);
+
+    @Headers({"Accept: application/json"})
+    @GET("campaigns")
+    Call<List<Campaign>> getCampaigns(@Header("Authorization") String token);
+
+    @Headers({"Accept: application/json"})
     @GET("surveys/questions/{id}")
     Call<List<Question>> getQuestions(@Header("Authorization") String token, @Path("id") long id);
+
+    @Headers({"Accept: application/json"})
+    @POST("checkin")
+    Call<StandardResponse> sendSession(@Header("Authorization") String token, @Body Checkin checkin);
+
+    @Headers({"Accept: application/json"})
+    @POST("checkout")
+    @FormUrlEncoded
+    Call<StandardResponse> endSession(@Header("Authorization") String token, @Field("campaignid") long id);
 
     @Headers({"Accept: application/json"})
     @POST("answers/storemultiple")

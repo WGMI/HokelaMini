@@ -1,7 +1,6 @@
 package com.example.hokelamini;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hokelamini.Models.Responses.AuthResponse;
 import com.example.hokelamini.Models.User;
@@ -48,8 +50,9 @@ public class Login extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(context,MainActivity.class));
-                //Validate not empty
+                ProgressDialog dialog = new ProgressDialog(context);
+                dialog.setMessage("Signing In...");
+                dialog.show();
 
                 String emailString = email.getText().toString();
                 String passwordString = password.getText().toString();
@@ -67,6 +70,7 @@ public class Login extends AppCompatActivity {
                 call.enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        dialog.dismiss();
                         Gson gson = new Gson();
                         User user = response.body().getUser();
                         String token = response.body().getToken();
@@ -79,6 +83,12 @@ public class Login extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        dialog.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("Error")
+                            .setMessage("Please try again.")
+                            .setNegativeButton("OK",null)
+                            .show();
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 });

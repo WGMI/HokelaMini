@@ -1,8 +1,10 @@
 package com.example.hokelamini;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -79,8 +81,9 @@ public class Register extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(context,MainActivity.class));
-                //Validate not empty
+                ProgressDialog dialog = new ProgressDialog(context);
+                dialog.setMessage("Signing Up...");
+                dialog.show();
 
                 String nameString = name.getText().toString();
                 String lnameString = lname.getText().toString();
@@ -117,6 +120,7 @@ public class Register extends AppCompatActivity {
                 call.enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        dialog.dismiss();
                         Gson gson = new Gson();
                         User user = response.body().getUser();
                         String token = response.body().getToken();
@@ -129,6 +133,12 @@ public class Register extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        dialog.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("Error")
+                                .setMessage("Please try again.")
+                                .setNegativeButton("OK",null)
+                                .show();
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 });

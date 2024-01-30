@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,10 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.example.hokelamini.Models.Adapters.CampaignAdapter;
 import com.example.hokelamini.Models.Adapters.ProjectAdapter;
-import com.example.hokelamini.Models.Responses.Project;
+import com.example.hokelamini.Models.Campaign;
+import com.example.hokelamini.Models.Project;
 import com.example.hokelamini.Models.Responses.StandardResponse;
 import com.example.hokelamini.Network.ApiClient;
 import com.example.hokelamini.Network.RetrofitClient;
@@ -42,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
     String token;
 
     Toolbar toolbar;
-    RecyclerView projectList;
-    List<Project> projects;
-    ProjectAdapter adapter;
+    RecyclerView campaignList;
+    List<Campaign> campaigns;
+    CampaignAdapter adapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     static String TAG = "tag_main";
 
@@ -67,31 +70,40 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        projects = new ArrayList<>();
-        projectList = findViewById(R.id.project_list);
+        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
 
-        fetchProjects();
-    }
+        campaigns = new ArrayList<>();
+        campaignList = findViewById(R.id.campaign_list);
 
-    private void fetchProjects() {
-        Call<List<Project>> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).getProjects("Bearer " + token);
-        call.enqueue(new Callback<List<Project>>() {
+        fetchCampaigns();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onResponse(Call<List<Project>> call, Response<List<Project>> response) {
-                if(response != null){
-                    projects = response.body();
-                    LinearLayoutManager manager = new LinearLayoutManager(context);
-                    projectList.setLayoutManager(manager);
-                    adapter = new ProjectAdapter(context,projects);
-                    projectList.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Project>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+            public void onRefresh() {
+                fetchCampaigns();
             }
         });
+    }
+
+    private void fetchCampaigns() {
+        Call<List<Campaign>> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).getCampaigns("Bearer " + token);
+        call.enqueue(new Callback<List<Campaign>>() {
+            @Override
+            public void onResponse(Call<List<Campaign>> call, Response<List<Campaign>> response) {
+                campaigns = response.body();
+                LinearLayoutManager manager = new LinearLayoutManager(context);
+                campaignList.setLayoutManager(manager);
+                adapter = new CampaignAdapter(context,campaigns);
+                campaignList.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Campaign>> call, Throwable t) {
+
+            }
+        });
+
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -103,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.new_project:
-                newProject();
+            case R.id.new_campaign:
+                newCampaign();
                 break;
             case R.id.logout:
                 logout();
@@ -113,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void newProject() {
+    private void newCampaign() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.project_dialog);
 
@@ -131,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String codeString = code.getText().toString();
-                joinProject(codeString);
+                joinCampaign(codeString);
                 dialog.dismiss();
             }
         });
@@ -139,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void joinProject(String code) {
-        Call<StandardResponse> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).joinProject("Bearer " + token,code);
+    private void joinCampaign(String code) {
+        Call<StandardResponse> call = RetrofitClient.getRetrofitInstance().create(ApiClient.class).joinCampaign("Bearer " + token,code);
         call.enqueue(new Callback<StandardResponse>() {
             @Override
             public void onResponse(Call<StandardResponse> call, Response<StandardResponse> response) {

@@ -1,4 +1,4 @@
-package com.example.hokelamini.Models.Responses;
+package com.example.hokelamini.Models;
 
 public class Project {
 

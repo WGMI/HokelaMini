@@ -11,22 +11,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hokelamini.CampaignActivity;
+import com.example.hokelamini.Models.Campaign;
 import com.example.hokelamini.Models.Project;
 import com.example.hokelamini.ProjectActivity;
 import com.example.hokelamini.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder> {
+public class CampaignAdapter extends RecyclerView.Adapter<CampaignAdapter.ViewHolder> {
 
     Context context;
-    List<Project> projectList;
+    List<Campaign> campaignList;
 
-    public ProjectAdapter(Context context, List<Project> projectList) {
+    public CampaignAdapter(Context context, List<Campaign> campaignList) {
         this.context = context;
-        this.projectList = projectList;
+        this.campaignList = campaignList;
     }
 
     @NonNull
@@ -34,21 +40,27 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.single_project,parent,false);
+        View item = inflater.inflate(R.layout.single_campaign,parent,false);
         return new ViewHolder(item);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        Project project = projectList.get(position);
-        holder.title.setText(project.getName());
-        holder.date.setText(project.getCreated_at());
+        Campaign campaign = campaignList.get(position);
+        holder.title.setText(campaign.getName());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = format.parse(campaign.getCreated_at());
+            holder.date.setText(new SimpleDateFormat("d MMM yyyy").format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, ProjectActivity.class);
-                i.putExtra("project_id",project.getId());
-                i.putExtra("project_name",project.getName());
+                Intent i = new Intent(context, CampaignActivity.class);
+                i.putExtra("campaign_id",campaign.getId());
+                i.putExtra("campaign_name",campaign.getName());
                 context.startActivity(i);
             }
         });
@@ -56,7 +68,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return projectList.size();
+        return campaignList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
